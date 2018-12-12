@@ -108,7 +108,7 @@ export default {
     }
   },
   unbind(el) {
-    el.destroy()
-    if (el.destroySubmitBtn) el.destroySubmitBtn()
+//  el.destroy()
+//  if (el.destroySubmitBtn) el.destroySubmitBtn()
   }
 }
