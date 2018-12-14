@@ -1,6 +1,7 @@
 <template>
   <div class="row">
     <div class="col-md-4 col-md-offset-4 floating-box">
+    	<Message :show.sync="msgShow" :type="msgType" :msg="msg"/>
       <div class="panel panel-default">
         <div class="panel-heading">
           <h3 class="panel-title">请注册</h3>
@@ -88,7 +89,10 @@ export default {
       StepTwo:false,
       StepThree:false,
       success:false,
-      fail:false
+      fail:false,
+      msg: '', // 消息
+      msgType: '', // 消息类型
+      msgShow: false // 是否显示消息，默认不显示
     }
   },
   
@@ -173,7 +177,7 @@ export default {
 				console.log(error);
 			});
 			const user = {
-	      tell: this.phoneNumber,
+	      name: this.phoneNumber,
 	      password: this.userPassword,
 	    }
 //			const localUser = ls.getItem('user')
@@ -183,7 +187,17 @@ export default {
     login(user) {
 //    ls.setItem('user', user)
 			this.$store.dispatch('login', user)
-      alert('注册成功')
+//    alert('注册成功')
+			this.showMsg('注册成功', 'success')
+    },
+    showMsg(msg, type = 'warning') {
+      this.msg = msg
+      this.msgType = type
+      this.msgShow = false
+
+      this.$nextTick(() => {
+        this.msgShow = true
+      })
     }
 
   }
