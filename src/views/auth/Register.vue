@@ -176,11 +176,13 @@ export default {
 	      tell: this.phoneNumber,
 	      password: this.userPassword,
 	    }
-			const localUser = ls.getItem('user')
+//			const localUser = ls.getItem('user')
+			const localUser = this.$store.state.user
 			this.login(user)
     },
     login(user) {
-      ls.setItem('user', user)
+//    ls.setItem('user', user)
+			this.$store.dispatch('login', user)
       alert('注册成功')
     }
 
