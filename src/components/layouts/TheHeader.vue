@@ -28,6 +28,7 @@
 				<div class="navbar-right">
 					<TheEntry/>
 				</div>
+				
 		   </div>
 		</div>
 	</div>
@@ -35,10 +36,11 @@
 
 <script>
 	import TheEntry from '@/components/layouts/TheEntry'
+	
 	export default{
 		name:'TheHeader',
 		components:{
-			TheEntry
+			TheEntry,
 		},
 		data(){
 			return{

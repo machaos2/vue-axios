@@ -10,15 +10,15 @@
         <div class="panel-body">
 			  	<div class="FirstStep" v-if="axios_request">
 			  	  <div class="form-group">
-				    <label class="control-label">手机号</label>
-				    <input id="tell" v-model="phoneNumber" v-validator.required="{ regex: /^1[3|4|5|8][0-9]\d{4,8}$/, error: '请填入正确的号码'  }" type="text" class="form-control" placeholder="请填写手机号">
-				    <!--<p v-if="errorTxt">该手机已注册！</p>-->
-				  </div>
-				  <button type="submit" class="btn btn-lg btn-success btn-block" @click="getCaptcha">
-				    	获取图片验证码
-				  </button>
+					    <label class="control-label">手机号</label>
+					    <input id="tell" v-model="phoneNumber" v-validator.required="{ regex: /^1[3|4|5|8][0-9]\d{4,8}$/, error: '请填入正确的号码'  }" type="text" class="form-control" placeholder="请填写手机号">
+					    <!--<p v-if="errorTxt">该手机已注册！</p>-->
+					  </div>
+					  <button type="submit" class="btn btn-lg btn-success btn-block" @click="getCaptcha">
+					    	获取图片验证码
+					  </button>
 			    </div>
-		  
+		                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
 				  <div class="SecondStep" v-if="StepTwo">
 				  	<div class="thumbnail">
 					    <div class="captcha">
@@ -55,18 +55,13 @@
 				  <div class="success" v-if="success">
 				  	<p>success</p>
 				  	<p>{{result}}</p>
+				  	<p>{{phoneNumber}}</p>
 				  </div>
 				  
 				  <div class="fail" v-if="fail">
 				  	<p>fail</p>
 				  </div>
-				  <!--<div class="form-group">
-				    <label class="control-label">图片验证码</label>
-				    <input v-validator.required="{ title: '图片验证码' }" type="text" class="form-control" placeholder="请填写验证码">
-				  </div>-->
-				  <!--<button type="submit" class="btn btn-lg btn-success btn-block">
-				    <i class="fa fa-btn fa-sign-in"></i> 注册
-				  </button>-->
+				  
 				</div>
       </div>
     </div>
@@ -75,7 +70,7 @@
 </template>
 
 <script>
-
+	import ls from '@/utils/localStorage'
 export default {
   name: 'Register',
   data() {
@@ -96,13 +91,7 @@ export default {
       fail:false
     }
   },
-  created() {
-//  this.getCaptcha()
-  },
-  mounted () {
-	
-	
-  },
+  
   methods: {
     getCaptcha() {
     	this.axios.post('http://larabbsmc.beesoft.ink/api/captchas', {
@@ -148,10 +137,17 @@ export default {
 			})
 			.catch(function (error) {
 				alert("验证码填写错误！请点击图片更换验证码！");
-//				console.log(error);
-//					getCaptcha();
 			});
     },
+//  register(e) {
+//    this.$nextTick(() => {
+//      const target = e.target.type === 'submit' ? e.target : e.target.parentElement
+//
+//      if (target.canSubmit) {
+//        this.submit()
+//      }
+//    })
+//  },
     stepThreeGet(){
     	this.axios.post('http://larabbsmc.beesoft.ink/api/users', {
 	    	headers: {
@@ -176,9 +172,18 @@ export default {
 			.catch(function (error) {
 				console.log(error);
 			});
+			const user = {
+	      tell: this.phoneNumber,
+	      password: this.userPassword,
+	    }
+			const localUser = ls.getItem('user')
+			this.login(user)
+    },
+    login(user) {
+      ls.setItem('user', user)
+      alert('注册成功')
     }
-    
-    
+
   }
 }
 </script>
