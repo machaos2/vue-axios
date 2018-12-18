@@ -115,7 +115,6 @@ export default {
 				}
 			})
 			.catch(function (error) {
-//				console.log(error);
 				alert("该手机已注册！");
 				return false;
 			});
@@ -180,7 +179,6 @@ export default {
 	      name: this.phoneNumber,
 	      password: this.userPassword,
 	    }
-//			const localUser = ls.getItem('user')
 			const localUser = this.$store.state.user
 			this.login(user)
     },
