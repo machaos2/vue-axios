@@ -53,7 +53,7 @@
 					  </button>
 				  </div>
 				  
-				  <div class="success" v-if="success">
+				  <!--<div class="success" v-if="success">
 				  	<p>success</p>
 				  	<p>{{result}}</p>
 				  	<p>{{phoneNumber}}</p>
@@ -61,7 +61,7 @@
 				  
 				  <div class="fail" v-if="fail">
 				  	<p>fail</p>
-				  </div>
+				  </div>-->
 				  
 				</div>
       </div>
@@ -88,8 +88,8 @@ export default {
       axios_request:true,
       StepTwo:false,
       StepThree:false,
-      success:false,
-      fail:false,
+//    success:false,
+//    fail:false,
       msg: '', // 消息
       msgType: '', // 消息类型
       msgShow: false // 是否显示消息，默认不显示
@@ -124,7 +124,7 @@ export default {
     	console.log(this.captcha_key);
     	this.axios.post('http://larabbsmc.beesoft.ink/api/verificationCodes', {
 	    	headers: {
-				  'Access-Control-Allow-Origin': '*',  
+				  'Access-Control-Allow-Origin': '*',
 				  'Content-Type': 'application/json',
 				},  
 				captcha_code:this.captcha_code,
