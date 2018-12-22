@@ -38,7 +38,8 @@ export default {
       msg: '', // 消息
       msgType: '', // 消息类型
       msgShow: false, // 是否显示消息，默认不显示
-      client: false  //登陆成功与否
+      client: false,  //登陆成功与否
+      access_token:''
     }
   },
   methods: {
@@ -63,15 +64,10 @@ export default {
 			.then((response) => {
 					if(response.data.access_token){
 						this.client = true;
+						this.access_token = response.data.access_token;
 						this.mclogin()
 					}
-//				client = true;
-//					const user = {
-//			      name: this.username,
-//			      password: this.password,
-//			    }
-//					const localUser = this.$store.state.user
-//				this.$store.dispatch('login')
+
 			})
 			.catch(function (error) {
 				alert("用户名或密码错误！");
@@ -81,10 +77,9 @@ export default {
     mclogin(){
     	const user = {
 	      name: this.username,
-	      password: this.password
+	      access_token:this.access_token
 	    }
 			const localUser = this.$store.state.user
-			
     	this.$store.dispatch('login', user)
     },
     showMsg(msg, type = 'warning') {

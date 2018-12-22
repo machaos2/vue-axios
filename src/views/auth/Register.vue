@@ -88,11 +88,10 @@ export default {
       axios_request:true,
       StepTwo:false,
       StepThree:false,
-//    success:false,
-//    fail:false,
       msg: '', // 消息
       msgType: '', // 消息类型
-      msgShow: false // 是否显示消息，默认不显示
+      msgShow: false, // 是否显示消息，默认不显示
+      access_token:''
     }
   },
   
@@ -142,15 +141,7 @@ export default {
 				alert("验证码填写错误！请点击图片更换验证码！");
 			});
     },
-//  register(e) {
-//    this.$nextTick(() => {
-//      const target = e.target.type === 'submit' ? e.target : e.target.parentElement
-//
-//      if (target.canSubmit) {
-//        this.submit()
-//      }
-//    })
-//  },
+
     stepThreeGet(){
     	this.axios.post('http://larabbsmc.beesoft.ink/api/users', {
 	    	headers: {
@@ -163,11 +154,12 @@ export default {
 				password:this.userPassword
 			})
 			.then((response) => {
-				console.log(response);
 				this.StepThree = false;
 				if(response){
-					this.success = true;
-					this.result = response.data;
+//					this.success = true;
+//					this.result = response.data;
+					this.access_token = response.data.meta.access_token;
+					this.localstorein()
 				}else{
 					this.fail =true;
 				}
@@ -175,17 +167,17 @@ export default {
 			.catch(function (error) {
 				console.log(error);
 			});
-			const user = {
-	      name: this.phoneNumber,
-	      password: this.userPassword,
-	    }
-			const localUser = this.$store.state.user
-			this.login(user)
+    },
+    localstorein(){
+    	const user = {
+		      name: this.phoneNumber,
+		      access_token:this.access_token
+		    }
+				const localUser = this.$store.state.user
+	    	this.login(user)
     },
     login(user) {
-//    ls.setItem('user', user)
 			this.$store.dispatch('login', user)
-//    alert('注册成功')
 			this.showMsg('注册成功', 'success')
     },
     showMsg(msg, type = 'warning') {
