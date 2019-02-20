@@ -12,8 +12,11 @@ import Qs from 'qs'
 //QS是axios库中带的，不需要我们再npm安装一个
 // 引入插件
 import VueSweetalert2 from './plugins/vue-sweetalert2'
+import Message from './plugins/message'
 
 Vue.use(VueSweetalert2)
+
+Vue.use(Message)
  
 Vue.prototype.axios = axios;
 Vue.prototype.qs = Qs;

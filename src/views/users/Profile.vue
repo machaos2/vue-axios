@@ -8,7 +8,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label">用户名</label>
             <div class="col-sm-6">
-              <input v-model.trim="username" v-validator:input.required="{ title: '用户名', regex: /^[a-zA-Z]+\w*\s?\w*$/, error: '用户名要求以字母开头的单词字符' }" type="text" class="form-control">
+              <input v-model.trim="username" v-validator:input.required="{ title: '用户名', regex: /^[0-9]+\w*\s?\w*$/, error: '用户名要求以字母开头的单词字符' }" type="text" class="form-control">
             </div>
           </div>
           <div class="form-group">
@@ -71,16 +71,38 @@ export default {
     }
   },
   created() {
-    const user = this.$store.state.user
-
+    const user = this.$store.state.user;
     if (user && typeof user === 'object') {
-      const { name, sex, hobbies, introduction } = user
+    	const { name, sex, hobbies, introduction } = user
 
       this.username = name
       this.sex = sex || this.sex
       this.hobbies = hobbies || this.hobbies
       this.introduction = introduction
     }
+    
+//		console.log(this.$store.state.user.access_token);
+//		this.axios.get('http://larabbsmc.beesoft.ink/api/user', {
+//  	headers: {
+//  		'Access-Control-Allow-Origin': '*',
+//				'Authorization': 'Bearer'+this.$store.state.user.access_token,
+//			  'Content-Type': 'application/json'
+//			  
+//			}
+//		})
+//		.then((response) => {
+//				if(response){
+//					console.log(response);
+//					alert("success");
+//				}
+//
+//		})
+//		.catch(function (error) {
+//			alert("错误！");
+//			return false;
+//		});
+			
+		console.log(user);
   },
   methods: {
     updateProfile(e) {
@@ -92,7 +114,8 @@ export default {
             hobbies: this.hobbies,
             introduction: this.introduction
           })
-          alert('修改成功')
+//        alert('修改成功')
+					this.$message.show('修改成功')
         }
       })
     }
